@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 from sklearn.preprocessing import LabelEncoder
 
 def load_data(abFilePath):
@@ -44,6 +45,18 @@ def analyze_data(abData):
             plt.show()
         else:
             print("Class column not found.")
+        
+        # Compute and visualize correlation matrix for numeric columns
+        numeric_cols = abData.select_dtypes(include=['int64', 'float64']).columns
+        if len(numeric_cols) > 0:
+            print("Correlation Matrix:")
+            corr_matrix = abData[numeric_cols].corr()
+            plt.figure(figsize=(10, 8))
+            sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', fmt=".2f")
+            plt.title('Correlation Matrix')
+            plt.show()
+        else:
+            print("No numeric columns found for correlation analysis.")
 
 def main():
     abFilePath = "DryBeanDataset/Dry_Bean_Dataset.xlsx"
