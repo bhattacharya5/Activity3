@@ -57,6 +57,15 @@ def analyze_data(abData):
             plt.show()
         else:
             print("No numeric columns found for correlation analysis.")
+        
+        # Calculate and visualize percentage of missing values in each column
+        missing_percentage = (abData.isnull().mean() * 100).sort_values(ascending=False)
+        plt.figure(figsize=(10, 6))
+        missing_percentage.plot(kind='bar', color='skyblue')
+        plt.title('Percentage of Missing Values in Each Column')
+        plt.xlabel('Columns')
+        plt.ylabel('Percentage of Missing Values')
+        plt.show()
 
 def main():
     abFilePath = "DryBeanDataset/Dry_Bean_Dataset.xlsx"
